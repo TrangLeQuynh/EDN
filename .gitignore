@@ -1,0 +1,23 @@
+__pycache__/*
+**/__pycache__/
+*.log
+*.pot
+*.pyc
+
+### macOS ###
+*.DS_Store
+
+# IDEs 
+.vscode/
+
+# Distribution / packaging
+.Python
+env/
+build/
+
+# EDN
+data
+examples
+outputs
+pretrained
+salmaps
