@@ -43,7 +43,7 @@ def test(args, model, image_list, label_list, save_dir):
         img_out = model(img)[:, 0, :, :].unsqueeze(dim=0)
 
         img_out = F.interpolate(img_out, size=image.shape[:2], mode='bilinear', align_corners=False)
-        eval.add_batch(img_out[:, 0, :, :], label.unsqueeze(dim=0))
+        eval.add_batch(img_out[:, 0, :, :].cuda(), label.unsqueeze(dim=0).cuda())
 
         sal_map = (img_out*255).data.cpu().numpy()[0, 0].astype(np.uint8)
         cv2.imwrite(osp.join(save_dir, osp.basename(image_list[idx])[:-4] + '.png'), sal_map)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     parser.add_argument('--width', type=int, default=384, help='Width of RGB image')
     parser.add_argument('--height', type=int, default=384, help='Height of RGB image')
     parser.add_argument('--savedir', default='./outputs', help='directory to save the results')
-    parser.add_argument('--gpu', default=True, type=lambda x: (str(x).lower() == 'true'),
+    parser.add_argument('--gpu', default=False, type=lambda x: (str(x).lower() == 'true'),
                         help='Run on CPU or GPU. If TRUE, then GPU')
     parser.add_argument('--pretrained', default=None, help='Pretrained model')
 
@@ -124,5 +124,5 @@ if __name__ == '__main__':
 
     data_lists = ['DUTS-TE', 'DUT-OMRON', 'ECSSD', 'PASCAL-S', 'HKU-IS', 'SOD']
     for data_list in data_lists:
-        print("processing ", data_list)
+        print(f"processing {data_list}_______________________________________")
         main(args, data_list)
