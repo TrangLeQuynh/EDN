@@ -26,7 +26,6 @@ def convert_to_onnx(model, save_path, gpu = False):
       input = torch.randn(1, 3, 384, 384)
   if gpu:
       input = input.cuda()
-  print(input.shape)
   with torch.no_grad():
     torch.onnx.export(
       model,
@@ -74,6 +73,17 @@ def build_model(args):
 
     return model
 
+def save_jit(net, save_path, gpu = False):
+  if 'LiteEX' in args.pretrained:
+      # EDN-LiteEX
+      input = torch.randn(1, 3, 224, 224)
+  else:
+      input = torch.randn(1, 3, 384, 384)
+  if gpu:
+      input = input.cuda()
+  net = torch.jit.trace(net, input, strict=False)
+  torch.jit.save(net, save_path)
+
 def parse_args():
   parser = argparse.ArgumentParser()
   parser.add_argument("--pretrained", type=str, required=True)
@@ -89,3 +99,6 @@ if __name__ == "__main__":
   onnx_path = f"{os.path.basename(args.pretrained).split('.')[0]}.onnx"
   convert_to_onnx(net, onnx_path, gpu=args.gpu)
   verify_onnx_model(onnx_path)
+
+  # jit_path = f"{os.path.basename(args.pretrained).split('.')[0]}.pt"
+  # save_jit(net, jit_path, gpu=args.gpu)

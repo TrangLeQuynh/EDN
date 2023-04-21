@@ -165,7 +165,7 @@ class EDN(nn.Module):
                     getattr(self, 'cls' + str(idx + 1))(feature),
                     input.shape[2:],
                     mode='bilinear',
-                    align_corners=False)
+                    align_corners=True)
             )
             # p2t can alternatively use features of 4 levels. Here 5 levels are applied.
         return torch.sigmoid(torch.cat(saliency_maps, dim=1))
@@ -201,7 +201,7 @@ class CustomDecoder(nn.Module):
             inner_top_down = F.interpolate(self.inners_b[idx](stage_result),
                                            size=features[idx].shape[2:],
                                            mode='bilinear',
-                                           align_corners=False)
+                                           align_corners=True)
             if att is not None and att.shape[1] == features[idx].shape[1] and num_mul_att:
                 features[idx] = features[idx] * att
                 num_mul_att -= 1
