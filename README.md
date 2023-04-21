@@ -28,22 +28,15 @@ pip install -r requirements.txt
 ````
 to install all requirements.
 
-### Run all steps quickly
-
-Simply run:
-
-```
-bash one-key-run.sh
-```
-
-It will download all data, evaluate all models, produce all saliency maps to `salmaps/` folder,  and train `EDN-Lite` automatically. 
-**Note that this script requires that you have a good downloading speed on GitHub.**
-
 
 ### Data Preparing
 
 **You can choose to use our automatic preparation script, if you have good downloading speed on github**:
 ```
+#download pretrained model
+bash scripts/pretrained_model.sh
+
+#download dataset
 bash scripts/prepare_data.sh
 ```
 The script will prepare the datasets, imagenet-pretrained models, and pretrained models of EDN/EDN-Lite. 
@@ -59,14 +52,6 @@ After completion of downloading, extract the data and put them to `./data/` fold
 ```
 unzip SOD_datasets.zip -O ./data
 ```
-
-### Demo
-
-We provide some examples for quick run:
-````
-python demo.py
-````
-
 ### Train
 
 If you cannot run `bash scripts/prepare_data.sh`, please first download the imagenet pretrained models and put them to `pretrained` folder:
