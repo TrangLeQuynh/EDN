@@ -21,3 +21,8 @@ examples
 outputs
 pretrained
 salmaps
+
+#model
+*.onnx
+*.pb
+*.tflite
