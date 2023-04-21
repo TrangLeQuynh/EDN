@@ -37,7 +37,6 @@ def run_inference(args, model, img_path, save_dir):
 
     if args.gpu:
         img = img.cuda()
-
     begin = time.time()
     img_out = model(img)
     img_out = img_out[:, 0, :, :].unsqueeze(dim=0)
