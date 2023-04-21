@@ -28,7 +28,7 @@ wget -c --no-check-certificate --content-disposition $EDN_VGG16_ADDR -O pretrain
 
 echo "downloading EDNLite and EDN-LiteEX from github.com!"
 wget -c --no-check-certificate --content-disposition $EDN_LITE_ADDR -O pretrained/EDN-Lite.pth
-wget -c --no-check-certificate --content-disposition $EDN_LITEEX_ADDR -O pretrained/EDN-Lite.pth
+wget -c --no-check-certificate --content-disposition $EDN_LITEEX_ADDR -O pretrained/EDN-LiteEX.pth
 
 echo "downloading EDN-P2T-S from github.com!"
 wget -c --no-check-certificate --content-disposition $EDN_P2T_S_ADDR -O pretrained/EDN-P2T-S.pth
